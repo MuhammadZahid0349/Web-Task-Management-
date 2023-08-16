@@ -37,7 +37,54 @@ class _HomeViewState extends State<HomeView> {
               flex: 15,
               child: Column(
                 children: [
-                  const header(),
+                  !context.isPhone
+                      ? const header()
+                      : Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    _drawerKey.currentState!.openDrawer();
+                                  },
+                                  icon: const Icon(
+                                    Icons.menu,
+                                    color: grey,
+                                  )),
+                              5.w.widthBox,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomizedText(
+                                      text: "Task Management",
+                                      size: 15.sp,
+                                      color: grey),
+                                  CustomizedText(
+                                      text:
+                                          "Manage task made easy with friends",
+                                      color: grey,
+                                      size: 8.sp),
+                                ],
+                              ),
+                              const Spacer(),
+                              Icon(
+                                Icons.notifications,
+                                color: grey,
+                                size: 30.sp,
+                              ),
+                              10.w.widthBox,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(30),
+                                child: const CircleAvatar(
+                                  backgroundColor: Colors.amber,
+                                  radius: 25,
+                                  foregroundImage: NetworkImage(
+                                      "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                   Expanded(
                       child: Container(
                     padding: const EdgeInsets.all(30),
@@ -48,10 +95,100 @@ class _HomeViewState extends State<HomeView> {
                         color: white,
                         borderRadius: !context.isPhone
                             ? BorderRadius.circular(50.r)
-                            : BorderRadius.circular(20.r)),
+                            : BorderRadius.circular(30.r)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomizedText(
+                            text: "My Task", size: 30.sp, color: grey),
+                        20.verticalSpace,
+                        SizedBox(
+                          height: 200.h,
+                          child: ListView(
+                            physics: ScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            children: [
+                              taskDetails(),
+                              taskDetails(),
+                              taskDetails(),
+                              taskDetails(),
+                              taskDetails(),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ))
                 ],
               )),
+        ],
+      ),
+    );
+  }
+
+  Container taskDetails() {
+    return Container(
+      width: 110.w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.r),
+          color: Colors.brown.shade100),
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: const CircleAvatar(
+                  backgroundColor: Colors.amber,
+                  radius: 20,
+                  foregroundImage: NetworkImage(
+                      "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"),
+                ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: const CircleAvatar(
+                  backgroundColor: Colors.amber,
+                  radius: 20,
+                  foregroundImage: NetworkImage(
+                      "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"),
+                ),
+              ),
+              const Spacer(),
+              FittedBox(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(5),
+                  height: 30.h,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r), color: bgBlue),
+                  child: Center(
+                    child:
+                        CustomizedText(text: "100%", color: grey, size: 17.sp),
+                  ),
+                ),
+              )
+            ],
+          ),
+          const Spacer(),
+          FittedBox(
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(5),
+              height: 30.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.r), color: bgBlue),
+              child: CustomizedText(
+                  text: "10 / 10 Task", size: 12.sp, color: grey),
+            ),
+          ),
+          10.h.heightBox,
+          CustomizedText(text: "Mobile Development", size: 20.sp, color: grey),
+          CustomizedText(text: "Dead Line", size: 15.sp, color: grey)
         ],
       ),
     );
