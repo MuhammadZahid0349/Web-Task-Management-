@@ -14,7 +14,7 @@ class header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height * 0.1,
+      height: Get.height * 0.15,
       child: Padding(
         padding: const EdgeInsets.only(left: 40, right: 40, top: 25),
         child: Row(

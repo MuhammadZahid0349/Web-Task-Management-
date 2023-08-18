@@ -34,59 +34,58 @@ class _HomeViewState extends State<HomeView> {
               ? const Expanded(flex: 2, child: SideBarView())
               : const SizedBox(),
           Expanded(
-              flex: 15,
-              child: Column(
-                children: [
-                  !context.isPhone
-                      ? const header()
-                      : Container(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    _drawerKey.currentState!.openDrawer();
-                                  },
-                                  icon: const Icon(
-                                    Icons.menu,
+            flex: 15,
+            child: Column(
+              children: [
+                !context.isPhone
+                    ? const header()
+                    : Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  _drawerKey.currentState!.openDrawer();
+                                },
+                                icon: const Icon(
+                                  Icons.menu,
+                                  color: grey,
+                                )),
+                            5.w.widthBox,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomizedText(
+                                    text: "Task Management",
+                                    size: 15.sp,
+                                    color: grey),
+                                CustomizedText(
+                                    text: "Manage task made easy with friends",
                                     color: grey,
-                                  )),
-                              5.w.widthBox,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomizedText(
-                                      text: "Task Management",
-                                      size: 15.sp,
-                                      color: grey),
-                                  CustomizedText(
-                                      text:
-                                          "Manage task made easy with friends",
-                                      color: grey,
-                                      size: 8.sp),
-                                ],
+                                    size: 8.sp),
+                              ],
+                            ),
+                            const Spacer(),
+                            Icon(
+                              Icons.notifications,
+                              color: grey,
+                              size: 30.sp,
+                            ),
+                            10.w.widthBox,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: const CircleAvatar(
+                                backgroundColor: Colors.amber,
+                                radius: 20,
+                                foregroundImage: NetworkImage(
+                                    "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"),
                               ),
-                              const Spacer(),
-                              Icon(
-                                Icons.notifications,
-                                color: grey,
-                                size: 30.sp,
-                              ),
-                              10.w.widthBox,
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
-                                child: const CircleAvatar(
-                                  backgroundColor: Colors.amber,
-                                  radius: 25,
-                                  foregroundImage: NetworkImage(
-                                      "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"),
-                                ),
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
-                  Expanded(
-                      child: Container(
+                      ),
+                Expanded(
+                  child: Container(
                     padding: const EdgeInsets.all(30),
                     margin: !context.isPhone
                         ? const EdgeInsets.all(10)
@@ -101,27 +100,25 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         CustomizedText(
                             text: "My Task", size: 30.sp, color: grey),
-                        20.verticalSpace,
+                        10.verticalSpace,
                         SizedBox(
-                          height: 200.h,
-                          child: ListView(
-                            physics: ScrollPhysics(),
+                          height: 200,
+                          child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: [
-                              taskDetails(),
-                              taskDetails(),
-                              taskDetails(),
-                              taskDetails(),
-                              taskDetails(),
-                            ],
+                            itemCount: 6, // Number of taskDetails widgets
+                            itemBuilder: (context, index) {
+                              return taskDetails();
+                            },
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  ))
-                ],
-              )),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -129,12 +126,12 @@ class _HomeViewState extends State<HomeView> {
 
   Container taskDetails() {
     return Container(
-      width: 110.w,
+      width: 400,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
           color: Colors.brown.shade100),
       padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
